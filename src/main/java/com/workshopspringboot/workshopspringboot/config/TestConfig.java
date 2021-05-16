@@ -2,6 +2,7 @@ package com.workshopspringboot.workshopspringboot.config;
 
 import com.workshopspringboot.workshopspringboot.entities.Order;
 import com.workshopspringboot.workshopspringboot.entities.User;
+import com.workshopspringboot.workshopspringboot.entities.enums.OrderStatus;
 import com.workshopspringboot.workshopspringboot.repositories.OrderRepository;
 import com.workshopspringboot.workshopspringboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,13 @@ public class TestConfig implements CommandLineRunner {
     public void run(String... args) throws Exception {
         User u1 = new User(null, "Maria Brown", "maria@gmail.com", "123456", "988888888");
         User u2 = new User(null, "Alex Green", "alex@gmail.com", "123456", "977777777");
+        User u3 = new User(null, "Kaique Oliveira", "kaique@gmail.com", "123456", "955555555");
 
-        Order o1 = new Order(null, Instant.parse("2020-05-18T19:55:07Z"), u1);
-        Order o2 = new Order(null, Instant.parse("2020-05-20T19:53:10Z"), u2);
+        Order o1 = new Order(null, Instant.parse("2020-05-18T19:55:07Z"), OrderStatus.WAITING_PAYMENT, u1);
+        Order o2 = new Order(null, Instant.parse("2020-05-20T19:53:10Z"), OrderStatus.PAID, u2);
+        Order o3 = new Order(null, Instant.parse("2020-05-21T21:44:10Z"), OrderStatus.CANCELED, u3);
 
-        userRepository.saveAll(Arrays.asList(u1, u2));
-        orderRepository.saveAll(Arrays.asList(o1, o2));
+        userRepository.saveAll(Arrays.asList(u1, u2, u3));
+        orderRepository.saveAll(Arrays.asList(o1, o2, o3));
     }
 }
